@@ -1,0 +1,20 @@
+{
+  "name": "socket.io-example",
+  "version": "1.0.0",
+  "description": "Following a socket.io tutorial (Realtime chat app with rooms)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.",
+    "dev": "nodemon server"
+  },
+  "author": "Sydney Chiang",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "socket.io": "^3.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
