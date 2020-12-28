@@ -131,7 +131,10 @@ button:focus {
 
 }
 
-
+#roomCode{
+    position: absolute;
+    
+}
 
 
 /* Sarah Drasner Animation */
