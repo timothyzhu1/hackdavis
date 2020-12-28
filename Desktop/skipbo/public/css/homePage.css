@@ -1,0 +1,162 @@
+body{
+    font-family: "Ubuntu";
+    background: #F2E7DC;
+    text-align: center;
+
+}
+
+h1{
+    margin-top: 2.4em;
+    color: #4E4873;
+    font-size: 70px;
+    font-weight: 700;
+
+}
+
+button{
+    margin: 1%;
+    font-family: "Ubuntu";
+    font-weight: 500;
+    font-size: 25px;
+    border: none;
+    color: #F2E7DC;
+    border-radius: 38px;
+    padding: 0.5em;
+    width: 11em;
+    height: 2.2em;
+    box-shadow: 0px 4px 4px #BDB4AE;
+}
+
+input{
+    box-sizing: border-box;
+    margin: 1%;
+    margin-bottom: 1%;
+    font-family: "Ubuntu";
+    font-weight: 500;
+    font-size: 25px;
+    color: #4E4873;
+    border: 5px;
+    border-style: solid;
+    background: #F2E7DC;
+    border-radius: 38px;
+    width: 11em;
+    height: 2.2em;
+    box-shadow: 0px 4px 4px #BDB4AE;
+    padding-left: 0.5em;
+    caret-color: #4E4873;
+}
+
+
+
+input:focus, button:focus{
+    outline: none;
+}
+
+.screenName {
+    background: transparent;
+    border-radius: 38px;
+    font-size: 25px;
+    height: 2em;
+    width: 10em;
+    margin: 1%;
+    box-shadow: 0px 4px 4px #BDB4AE;
+
+}
+
+
+#name{
+
+    border-color: #4E4873;
+}
+
+#joinCode{
+    display: none;
+    width: 7.5em;
+    align-self: left;
+    margin-right: 0.5%;
+    border-color: #F2ADA7;
+    color: #F2ADA7;
+    caret-color: #F2ADA7;
+}
+
+::placeholder{
+    color: #4E4873;
+    text-align: left;
+    opacity: 0.5;
+
+}
+
+button:focus {
+    border: none;
+
+}
+
+#new {
+    background: #F28157;
+}
+
+#join {
+    background: #F2ADA7;
+    
+
+}
+
+
+#joinSubmit{
+    background: #F2ADA7;
+    width: 3em;
+    margin-left: 0.5%;
+    display: none;
+}
+
+#rules {
+    background: #D94848;
+}
+
+#waitingRoom{
+    display: none;
+    font-size:1.5em;
+}
+
+#waitingRoomTitle{
+    color: #D55352;
+    font-size: 2em;
+}
+
+#playerList{
+    color: #444444;
+    text-align: left;
+    margin-left: 30%;
+    margin-right: 30%;
+
+}
+
+
+
+
+/* Sarah Drasner Animation */
+
+.shake {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skip-Bo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/homePage.css">
+</head>
+<body>
+
+<h1>Skip-Bo</h1>
+
+<h2 id="waitingRoomTitle"> </h2>
+
+<div id="home">
+    <input id="name" name="username" placeholder="Name" autocomplete="off" required>
+    <br>
+    <button id="new">Start a New Game</button>
+    <br>
+    <button id="join">Join a Game</button>
+
+    <!-- hidden -->
+    <input id="joinCode" name="roomCode" placeholder="Room Code" autocomplete="off" required>
+    <button id="joinSubmit">Join!</button>
+    <!------------>
+
+    <br>
+    <button id="rules" onclick="window.open('https://www.fgbradleys.com/rules/Skip-Bo.pdf');">Rules</button>
+
+</div>
+
+<div id="waitingRoom">
+    <!-- HIDE THIS BEFORE THE NEW GAME BUTTON IS CLICKED -->
+
+    
+    <p>Players:</p>
+    <p id="playerList"></p>
+    <span id="roomCode">Room Code:
+        <span id="roomName"></span>
+    </span>
+
+</div>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<!-- <script src="./js/homePage.js"></script> -->
+<script src="js/main.js"></script>
+</body>
+
+</html>
