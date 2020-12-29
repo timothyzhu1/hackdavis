@@ -2,15 +2,13 @@ body{
     font-family: "Ubuntu";
     background: #F2E7DC;
     text-align: center;
-
 }
 
 h1{
-    margin-top: 2.4em;
+    margin-top: 2em;
     color: #4E4873;
     font-size: 70px;
     font-weight: 700;
-
 }
 
 button{
@@ -25,6 +23,7 @@ button{
     width: 11em;
     height: 2.2em;
     box-shadow: 0px 4px 4px #BDB4AE;
+    cursor: pointer;
 }
 
 input{
@@ -46,8 +45,6 @@ input{
     caret-color: #4E4873;
 }
 
-
-
 input:focus, button:focus{
     outline: none;
 }
@@ -60,12 +57,9 @@ input:focus, button:focus{
     width: 10em;
     margin: 1%;
     box-shadow: 0px 4px 4px #BDB4AE;
-
 }
 
-
 #name{
-
     border-color: #4E4873;
 }
 
@@ -83,12 +77,10 @@ input:focus, button:focus{
     color: #4E4873;
     text-align: left;
     opacity: 0.5;
-
 }
 
 button:focus {
     border: none;
-
 }
 
 #new {
@@ -97,10 +89,7 @@ button:focus {
 
 #join {
     background: #F2ADA7;
-    
-
 }
-
 
 #joinSubmit{
     background: #F2ADA7;
@@ -126,16 +115,34 @@ button:focus {
 #playerList{
     color: #444444;
     text-align: left;
-    margin-left: 30%;
-    margin-right: 30%;
-
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
-#roomCode{
+#ready{
+    /* background: #F28157; */
+    /* background: #4E4873; */
+    background: #F2ADA7;
+}
+
+/* #roomCode{
     position: absolute;
-    
-}
+    bottom: 168px; /* 2.4 em * 70 px = 168, matches h1 margins */
+    /* left: 50%;
+    margin-left: -95px;
 
+} */
+
+#backBtn{
+    height: 30px;
+    width: 30px;
+    position: fixed;
+    z-index: 1;
+    left: 90px;
+    top: 100px;
+    display: none;
+    cursor: pointer;
+}
 
 /* Sarah Drasner Animation */
 

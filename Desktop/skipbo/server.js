@@ -2,8 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
-// const formatMessage = require('./public/utils/messages');
-const {userJoin, getCurrentUser, userLeave, getRoomUsers, isValidName} = require('./public/utils/users');
+const {userJoin, addHost, getHost, getCurrentUser, userLeave, getRoomCount, getRoomUsers, isValidName} = require('./public/utils/users');
 const {generateRoomCode, addRoom, removeRoom, isValidRoomCode} = require('./public/utils/rooms');
 
 const app = express();
@@ -13,7 +12,6 @@ const io = socketio(server);
 //set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 //run when a client connects
 io.on('connection', socket => {
 
@@ -22,14 +20,14 @@ io.on('connection', socket => {
         const user = userJoin(socket.id, username, room);
         socket.join(user.room);
         addRoom(user.room);
+        addHost(user.username);
         socket.emit('joined', 'Successfully joined');
         socket.emit('message', `${user.username} joined the Skip-Bo lobby!`);
     
-        console.log(getRoomUsers(user.room));
         //broadcast when a user connects
         socket.broadcast
             .to(user.room)
-            .emit('message', `${user.username} has joined the chat`);
+            .emit('message', `${user.username} has joined the lobby`);
 
         //send users and room info
         io.to(user.room).emit('roomUsers', {
@@ -42,12 +40,10 @@ io.on('connection', socket => {
     socket.on('joinRoom', ({username, room}) => {
         console.log(room);
         const user = userJoin(socket.id, username, room);
-        // console.log();
         if(isValidRoomCode(room)){
             socket.join(user.room);
             console.log(socket.id, user.room);
             //welcome current user
-            // socket.emit('message', formatMessage(botname, 'Welcome to ChatCord!'));
             socket.emit('joined', 'Successfully joined');
             socket.emit('message', `${user.username} joined the Skip-Bo lobby!`);
     
@@ -55,7 +51,7 @@ io.on('connection', socket => {
             //broadcast when a user connects
             socket.broadcast
                 .to(user.room)
-                .emit('message', `${user.username} has joined the chat`);
+                .emit('message', `${user.username} has joined the lobby`);
     
             //send users and room info
             io.to(user.room).emit('roomUsers', {
@@ -70,12 +66,45 @@ io.on('connection', socket => {
 
     });
 
+    socket.on('startGame', () => {
+        const user = getCurrentUser(socket.id);
+        const playerCount = getRoomCount(user.room);
+        if (playerCount >= 2){
+            console.log("Player count: " + playerCount);
+            var turn = Math.floor(Math.random() * playerCount);
+            // var status = new CardState(playerCount, turn);
+            // status.distributeCardsSetUp();
+            io.to(user.room).emit('startGame');
+        }
+        else{
+            io
+                .to(user.room)
+                .emit('message', 'Not enough players');
+        }
+        //set up the game here
+    });
+
     //listen for chatMessage
     socket.on('chatMessage', (msg) => {
         const user = getCurrentUser(socket.id);
         io
             .to(user.room)
             .emit('message', formatMessage(user.username, msg));
+    });
+
+    socket.on("leaves", () =>{
+        const user = userLeave(socket.id);
+        if(user){
+            io
+                .to(user.room)
+                .emit('message', `${user.username} has left the lobby`);
+            
+                //send users and room info
+            io.to(user.room).emit('roomUsers', {
+                room: user.room,
+                users: getRoomUsers(user.room)
+        })
+        }
     });
 
     //runs when client disconnects
@@ -85,7 +114,7 @@ io.on('connection', socket => {
         if(user){
             io
                 .to(user.room)
-                .emit('message', `${user.username} has left the chat`);
+                .emit('message', `${user.username} has left the lobby`);
             
                 //send users and room info
             io.to(user.room).emit('roomUsers', {

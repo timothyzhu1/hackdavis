@@ -1,4 +1,5 @@
 const users = [];
+var hostUsername = "";
 
 //Join user to chat (adds user to array)
 function userJoin(id, username, room){
@@ -7,9 +8,20 @@ function userJoin(id, username, room){
     return user;
 }
 
+function addHost(username){
+    hostUsername = username;
+}
+
+function changeHost(){
+}
+
 //get current user
 function getCurrentUser(id){
     return users.find(user => user.id === id);
+}
+
+function getHost(){
+    return hostUsername;
 }
 
 //user leaves chat (removes user from array)
@@ -18,6 +30,10 @@ function userLeave(id){
     if (index !== -1){
         return users.splice(index, 1)[0];
     }
+}
+
+function getRoomCount(room){
+    return users.filter(user => user.room === room).length;
 }
 
 // get room users
@@ -34,8 +50,11 @@ function isValidName(name){
 
 module.exports = {
     userJoin,
+    addHost,
+    getHost,
     getCurrentUser,
     userLeave,
+    getRoomCount,
     getRoomUsers,
     isValidName
 }

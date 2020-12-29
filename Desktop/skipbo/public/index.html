@@ -9,9 +9,11 @@
 </head>
 <body>
 
+<img id="backBtn" src="img/back.svg" alt="back button">
+
 <h1>Skip-Bo</h1>
 
-<h2 id="waitingRoomTitle"> </h2>
+<p id="waitingRoomTitle"> </p>
 
 <div id="home">
     <input id="name" name="username" placeholder="Name" autocomplete="off" required>
@@ -31,15 +33,14 @@
 </div>
 
 <div id="waitingRoom">
-    <!-- HIDE THIS BEFORE THE NEW GAME BUTTON IS CLICKED -->
-
-    
-    <p>Players:</p>
-    <p id="playerList"></p>
     <span id="roomCode">Room Code:
         <span id="roomName"></span>
     </span>
 
+    <p id="playerList"></p>
+    <!-- <table id="userTable"> </table> -->
+
+    <button id="ready">Start Game</button>
 </div>
 
 

@@ -1,5 +1,3 @@
-// const { isValidName } = require("../utils/users");
-
 const newBtn = document.getElementById("new");
 const joinBtn = document.getElementById("join");
 const joinCodeField = document.getElementById("joinCode");
@@ -10,6 +8,8 @@ const roomName = document.querySelector("#roomName");
 const userList = document.querySelector("#playerList");
 const homeDiv = document.querySelector("#home");
 const waitingRoomDiv = document.querySelector("#waitingRoom");
+const backBtn = document.querySelector("#backBtn");
+const readyBtn = document.querySelector("#ready");
 
 const socket = io();
 
@@ -25,7 +25,7 @@ newBtn.addEventListener("click", function(){
     }
 });
 
-
+//join existing game
 joinBtn.addEventListener("click", function(){
     joinBtn.style.display = "none";
     joinCodeField.style.display = "inline";
@@ -44,6 +44,19 @@ joinSubmitBtn.addEventListener("click", function(){
     }
 });
 
+backBtn.addEventListener("click", function(){
+    switchToHomePage();
+    socket.emit('leaves');
+});
+
+readyBtn.addEventListener("click", function(){
+    socket.emit('startGame');
+    // location.href = "dummyUI.html";
+});
+
+socket.on('startGame', () => {
+    location.href = "dummyUI.html";
+});
 
 //get room and users
 socket.on('roomUsers', ({room, users}) => {
@@ -59,18 +72,26 @@ socket.on('joined', message => {
     switchToWaitingRoom();
 });
 
-
+const waitingRoomTitle = document.querySelector("#waitingRoomTitle");
 function switchToWaitingRoom(){
-    const waitingRoomTitle = document.querySelector("#waitingRoomTitle");
     waitingRoomTitle.innerHTML = "Waiting Room";
     homeDiv.style.display = "none";
     waitingRoomDiv.style.display = "inline";
+    backBtn.style.display = "inline";
+}
+
+function switchToHomePage(){
+    waitingRoomTitle.innerHTML = " ";
+    homeDiv.style.display = "inline";
+    waitingRoomDiv.style.display = "none";
+    backBtn.style.display = "none";
 }
 
 // add room name to DOM
 function outputRoomName(room){
     roomName.innerText = room;
 }
+
 
 // // add names to DOM
 function outputRoomUsers(users){
@@ -87,41 +108,4 @@ function isValidName(name){
 socket.on('message', message => {
     console.log(message);
     // outputMessage(message);
-
-    //scroll down every time message is received
-    // chatMessages.scrollTop = chatMessages.scrollHeight;
-
 });
-
-// function isValidRoomCode(room){
-
-// }
-
-// //message submit
-// chatForm.addEventListener('submit', (e) =>{
-//     //stops the form from submitting
-//     e.preventDefault();
-
-//     //get message text
-//     // const msg = e.target.elements.msg.value;
-    
-//     //emit message to server
-//     socket.emit('chatMessage', msg); //UPDATE
-
-//     //clear input
-//     // e.target.elements.msg.value = '';
-//     // e.target.elements.msg.focus();
-
-// });
-
-//output message to DOM
-// function outputMessage(message){
-//     const div = document.createElement('div');
-//     div.classList.add('message');
-//     div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
-//     <p class="text">
-//         ${message.text}
-//     </p>`;
-//     document.querySelector('.chat-messages').appendChild(div);
-// }
-
