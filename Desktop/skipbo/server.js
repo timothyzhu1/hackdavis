@@ -2,7 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
-const {userJoin, addHost, getHost, getCurrentUser, userLeave, getRoomCount, getRoomUsers, isValidName} = require('./public/utils/users');
+const {userJoin, addHost, getHost, getCurrentUser, userLeave, getRoomCount, getRoomUsers, isValidName, getRoomIDs} = require('./public/utils/users');
 const {generateRoomCode, addRoom, removeRoom, isValidRoomCode} = require('./public/utils/rooms');
 
 const app = express();
@@ -67,14 +67,14 @@ io.on('connection', socket => {
     });
 
     socket.on('startGame', () => {
+
         const user = getCurrentUser(socket.id);
+        io.to(user.room).emit('message', user);
+
         const playerCount = getRoomCount(user.room);
+        io.to(user.room).emit('message', playerCount);
         if (playerCount >= 2){
-            console.log("Player count: " + playerCount);
-            var turn = Math.floor(Math.random() * playerCount);
-            // var status = new CardState(playerCount, turn);
-            // status.distributeCardsSetUp();
-            io.to(user.room).emit('startGame');
+            io.to(user.room).emit('startGame', playerCount, getRoomIDs(user.room), user.room);
         }
         else{
             io
@@ -90,6 +90,13 @@ io.on('connection', socket => {
         io
             .to(user.room)
             .emit('message', formatMessage(user.username, msg));
+    });
+
+    socket.on('distributeCards', (cardState, userRoom) => {
+        const user = getCurrentUser(socket.id);
+        console.log(socket.id);
+        console.log("USERRR", user);
+        io.to(userRoom).emit('distributeCards', cardState, user.id);
     });
 
     socket.on("leaves", () =>{
@@ -128,3 +135,4 @@ io.on('connection', socket => {
 
 const PORT = 3000 || process.env.PORT;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+

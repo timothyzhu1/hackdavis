@@ -11,6 +11,19 @@
 <h1>Skip-Bo</h1>
 
 
+<!-- <div class="card pink">
+    <div class="smallNum">1</div>
+    <div class="mainNum">1</div>
+</div>
+<div class="card purple">
+    <div class="smallNum">12</div>
+    <div class="mainNum">12</div>
+</div>
+<div class="card back">
+    <div class="logo">Skip-Bo</div>
+</div> -->
+
+
 
 <p>Draw/Build</p>
 
@@ -52,14 +65,20 @@
     <div id="hand5" class="handCards square" draggable="true" ondragstart="dragstart_handler(event)"></div>
 </div>
 
-<button id="distribute">Distribute Cards</button>
-<button id="endTurn">End Turn</button>
+<div>
+    <button id="distribute">Distribute Cards</button>
+    <button id="endTurn">End Turn</button>
+</div>
+
 
 
 <script src="/socket.io/socket.io.js"></script>
-<!-- <script src="./js/homePage.js"></script> -->
+
 <script src="CardPiles.js"></script>
 <script src="CardState.js"></script>
+
+
+<!-- <script src="js/main.js"></script> -->
 <script src="js/gameClient.js"></script>
 
 <!-- <script src="skipbo.js"></script> -->

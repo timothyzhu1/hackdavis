@@ -1,19 +1,18 @@
-const newBtn = document.getElementById("new");
-const joinBtn = document.getElementById("join");
-const joinCodeField = document.getElementById("joinCode");
-const joinSubmitBtn = document.getElementById("joinSubmit");
-const rulesBtn = document.getElementById("rules");
-const nameField = document.querySelector("#name");
+
+// const rulesBtn = document.getElementById("rules");
 const roomName = document.querySelector("#roomName");
 const userList = document.querySelector("#playerList");
 const homeDiv = document.querySelector("#home");
 const waitingRoomDiv = document.querySelector("#waitingRoom");
 const backBtn = document.querySelector("#backBtn");
 const readyBtn = document.querySelector("#ready");
+const card = document.querySelector(".card");
 
 const socket = io();
+const myStorage = window.localStorage;
 
-//click start new game
+const newBtn = document.getElementById("new");
+const nameField = document.querySelector("#name");
 newBtn.addEventListener("click", function(){
     const username = nameField.value;
     if(isValidName(username)){
@@ -26,12 +25,15 @@ newBtn.addEventListener("click", function(){
 });
 
 //join existing game
+const joinBtn = document.getElementById("join");
+const joinCodeField = document.getElementById("joinCode");
 joinBtn.addEventListener("click", function(){
     joinBtn.style.display = "none";
     joinCodeField.style.display = "inline";
     joinSubmitBtn.style.display = "inline";
 });
 
+const joinSubmitBtn = document.getElementById("joinSubmit");
 joinSubmitBtn.addEventListener("click", function(){
     const username = nameField.value;
     const room = parseInt(joinCodeField.value, 10);
@@ -51,11 +53,14 @@ backBtn.addEventListener("click", function(){
 
 readyBtn.addEventListener("click", function(){
     socket.emit('startGame');
-    // location.href = "dummyUI.html";
+    location.href = "dummyUI.html";
 });
 
-socket.on('startGame', () => {
-    location.href = "dummyUI.html";
+socket.on('startGame', (playerCount, PIDs, userRoom) => {
+    myStorage.setItem("playerCount", playerCount);
+    myStorage.setItem("PIDs", PIDs);
+    myStorage.setItem("roomNum", userRoom);
+    location.href = `dummyUI.html`;
 });
 
 //get room and users
@@ -70,6 +75,12 @@ socket.on('invalidRoomCode', message => {
 
 socket.on('joined', message => {
     switchToWaitingRoom();
+});
+
+// message from server
+socket.on('message', message => {
+    console.log(message);
+    // outputMessage(message);
 });
 
 const waitingRoomTitle = document.querySelector("#waitingRoomTitle");
@@ -104,8 +115,3 @@ function isValidName(name){
     return name!=="";
 }
 
-// message from server
-socket.on('message', message => {
-    console.log(message);
-    // outputMessage(message);
-});

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Recreation of the Skip-Bo card game",
   "main": "server.js",
+  "gameClient": "server.js",
   "scripts": {
     "start": "node server",
     "dev": "nodemon server"

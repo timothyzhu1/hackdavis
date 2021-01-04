@@ -41,6 +41,15 @@ function getRoomUsers(room){
     return users.filter(user => user.room === room);
 }
 
+function getRoomIDs(room){
+    var lst = users.filter(user => user.room === room);
+    var newlst = new Array();
+    for (var i = 0; i < lst.length; i++){
+        newlst.push(lst[i].id);
+    }
+    return newlst
+}
+
 function isValidName(name){
     return name!=="";
 }
@@ -56,5 +65,6 @@ module.exports = {
     userLeave,
     getRoomCount,
     getRoomUsers,
-    isValidName
+    isValidName,
+    getRoomIDs
 }

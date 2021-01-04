@@ -1,16 +1,17 @@
 //handles all the card piles
 class CardPiles{
-    constructor(playerBool, playerNum){
+    constructor(playerBool, playerNum, PID){
         this.stock_pile = [];
         this.other_piles = [[], [], [], []];
-
+        this.PID = PID;
         this.isPlayer = playerBool;
         this.hand = [];
         this.playerNum = playerNum;
     }
 
-//    createEventListeners(){
-//    }
+    getPID(){
+        return this.PID;
+    }
 
 
     displayStockPile(){
