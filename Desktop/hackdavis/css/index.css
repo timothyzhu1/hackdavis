@@ -1,0 +1,23 @@
+
+body{
+    font-family: "Ubuntu";
+    color: white;
+
+}
+
+
+.panel{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    text-align: center;
+}
+
+
+.backdrop{
+    background: linear-gradient(123.3deg, #5A328C 0%, #35328C 121.09%);
+
+}

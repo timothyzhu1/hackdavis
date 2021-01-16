@@ -1,0 +1,30 @@
+
+
+h1{
+    font-weight: 700;
+    font-size: 60px;
+}
+
+.homeBtns{
+    border: 8px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 30px;
+    width: 300px;
+    height: 300px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-family: "Ubuntu"
+
+
+}
+
+
+#personalBtn{
+    background: linear-gradient(137.26deg, #BAA0F2 1.67%, #A3A0F2 98.02%);
+}
+
+
+#podBtn{
+    background: linear-gradient(135.69deg, #F2CEEA 1.02%, #CFCEF2 97.04%);
+
+}
